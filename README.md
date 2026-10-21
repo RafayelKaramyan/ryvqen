@@ -6,6 +6,12 @@ An original React/TypeScript sports operations desk by **Rafayel Karamyan**.
 Choose a fictional event, follow an animated tracker, set manual decimal prices,
 pause a market and review the exact decision in a durable local journal.
 
+[Live demo](https://rafayelkaramyan.github.io/ryvqen/) ·
+[Verified release](https://github.com/RafayelKaramyan/ryvqen/actions/runs/39644755085) ·
+[Code walkthrough](docs/review-guide.md)
+
+![RYVQEN live operations desk](docs/screenshots/desk-desktop.jpg)
+
 ## Explore
 
 - **The desk:** twelve in-play events, illustrative football/basketball trackers,
@@ -62,10 +68,13 @@ suite. Browser tests require Playwright Chromium and Firefox. GitHub Actions
 installs those browsers, runs all checks and publishes the static build only
 after verification succeeds.
 
-The prepared Pages base is `/ryvqen/`; hash routes support direct event links.
-The initial local checkpoint passed **46 unit/integration tests** and a production
-build. Browser CI, screenshots and a verified deployed URL remain pending.
-See [executed validation](docs/validation.md) before interpreting test coverage.
+The Pages base is `/ryvqen/`; hash routes support direct event links.
+The verified release passed **46 unit/integration tests and 42 browser cases**:
+fourteen scenarios each in Chromium, Firefox and Pixel 7 Chromium. Strict types,
+zero-warning lint, formatting and the production build passed in the same run.
+Live manual-price persistence, journal details and the export action were also
+checked on the deployed demo. See [executed validation](docs/validation.md) for
+the exact commit, screenshots, coverage and remaining limits.
 
 ## Engineering notes
 
