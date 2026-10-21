@@ -5,9 +5,18 @@ const port = {
   getItem: (key: string) => window.localStorage.getItem(key),
   setItem: (key: string, value: string) => window.localStorage.setItem(key, value),
 };
+function workspaceId() {
+  if (typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+  // Keep local HTTP previews usable; randomUUID itself requires a secure context.
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6]! & 0x0f) | 0x40;
+  bytes[8] = (bytes[8]! & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (value) => value.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}
 export const desk = new DeskStore({
   storage: port,
-  id: () => crypto.randomUUID(),
+  id: workspaceId,
   now: () => Date.now(),
   ...(navigator.locks
     ? {

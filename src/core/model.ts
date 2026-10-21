@@ -225,7 +225,9 @@ export function applyMutation(
   if (Date.parse(at) - stream.lastReceivedAt > 7500)
     throw new Error('The feed is stale. Reconnect before changing a market.');
   if (action.generation !== book.generation)
-    throw new Error('This workspace was reset. Close this form and reopen the market.');
+    throw new Error(
+      'This workspace changed in another tab or was reset. Close this form and reopen the market.',
+    );
   const fixture = stream.fixtures.find((f) => f.id === action.fixtureId);
   const market = fixture?.markets.find((m) => m.id === action.marketId);
   if (!fixture || !market || fixture.phase !== 'live')

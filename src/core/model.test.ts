@@ -196,7 +196,7 @@ describe('market decisions', () => {
   });
   it('rejects stale forms and forms from a reset workspace', () => {
     expect(() => change(change(), action())).toThrow('another tab');
-    expect(() => change(emptyBook('different-generation'))).toThrow('workspace was reset');
+    expect(() => change(emptyBook('different-generation'))).toThrow('workspace changed');
   });
   it('requires a connected feed, live event, complete prices and meaningful reason', () => {
     expect(() => change(undefined, undefined, { ...connected(), connection: 'paused' })).toThrow(
@@ -235,11 +235,11 @@ class MemoryStorage {
     this.raw = value;
   }
 }
-const makeStore = (storage = new MemoryStorage()) => {
+const makeStore = (storage = new MemoryStorage(), idPrefix = 'generation') => {
   let id = 0;
   const store = new DeskStore({
     storage,
-    id: () => `generation-${++id}`,
+    id: () => `${idPrefix}-${++id}`,
     now: () => Date.UTC(2026, 9, 20),
   });
   store.receive(makeSnapshot(0));
@@ -283,7 +283,7 @@ describe('durable local workspace', () => {
   it('rereads storage before committing a form from another tab', async () => {
     const shared = new MemoryStorage();
     const a = makeStore(shared).store;
-    const b = makeStore(shared).store;
+    const b = makeStore(shared, 'other-tab').store;
     const stale = storeAction(b);
     await a.mutate(storeAction(a));
     await expect(b.mutate(stale)).rejects.toThrow('another tab');

@@ -211,9 +211,9 @@ export function DeskPage() {
         </div>
       </div>
       <div className="desk-grid">
-        <aside className="fixture-panel">
+        <aside className="fixture-panel" aria-labelledby="radar-heading">
           <div className="panel-heading">
-            <h2>On the radar</h2>
+            <h2 id="radar-heading">On the radar</h2>
             <span className="count">{rows.length}</span>
           </div>
           <div className="radar-controls">
@@ -335,9 +335,9 @@ export function DeskPage() {
             </span>
           </div>
         </div>
-        <aside className="insight-panel">
+        <aside className="insight-panel" aria-labelledby="pulse-heading">
           <div className="panel-heading">
-            <h2>The pulse</h2>
+            <h2 id="pulse-heading">The pulse</h2>
             <span className="label-accent">REPLAY</span>
           </div>
           <div className="pulse-title">

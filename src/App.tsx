@@ -35,6 +35,7 @@ function Workspace() {
   const location = useLocation();
   const navigate = useNavigate();
   const main = useRef<HTMLElement>(null);
+  const focusFixtureSearch = useRef(false);
   const [confirmReset, setConfirmReset] = useState(false);
   const [resetError, setResetError] = useState('');
   useEffect(() => connectFeed(), []);
@@ -50,7 +51,12 @@ function Workspace() {
       '/guide': 'A field guide',
     };
     document.title = `RYVQEN — ${names[location.pathname] ?? 'Page not found'}`;
-    main.current?.focus({ preventScroll: true });
+    const search = focusFixtureSearch.current
+      ? main.current?.querySelector<HTMLInputElement>('[aria-label="Search all fixtures"]')
+      : null;
+    focusFixtureSearch.current = false;
+    if (search) search.focus();
+    else main.current?.focus({ preventScroll: true });
   }, [location.pathname]);
   useEffect(() => {
     const shortcut = (e: KeyboardEvent) => {
@@ -65,15 +71,19 @@ function Workspace() {
         )
       ) {
         e.preventDefault();
-        navigate('/fixtures');
-        requestAnimationFrame(() =>
-          document.querySelector<HTMLInputElement>('[aria-label="Search all fixtures"]')?.focus(),
-        );
+        if (location.pathname === '/fixtures')
+          main.current
+            ?.querySelector<HTMLInputElement>('[aria-label="Search all fixtures"]')
+            ?.focus();
+        else {
+          focusFixtureSearch.current = true;
+          navigate('/fixtures');
+        }
       }
     };
     document.addEventListener('keydown', shortcut);
     return () => document.removeEventListener('keydown', shortcut);
-  }, [navigate]);
+  }, [navigate, location.pathname]);
   const feedActive = stream.connection === 'connected';
   return (
     <div className="app-shell">
@@ -87,7 +97,7 @@ function Workspace() {
       >
         Skip to content
       </a>
-      <aside className="sidebar">
+      <aside className="sidebar" aria-label="Workspace tools">
         <Link className="brand-mark" to="/" aria-label="RYVQEN live desk">
           <Mark />
         </Link>
