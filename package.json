@@ -1,0 +1,56 @@
+{
+  "name": "ryvqen",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "An independent live sports operations console with deterministic data, market controls and a durable local journal.",
+  "author": "Rafayel Karamyan",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4173",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "typecheck": "tsc -b",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test",
+    "feed": "tsx server/feed.ts"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "lucide-react": "0.468.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-router-dom": "7.18.4",
+    "zod": "^4.1.12",
+    "@fontsource-variable/space-grotesk": "5.3.0",
+    "@tanstack/react-virtual": "3.14.21",
+    "ws": "8.22.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "1.56.1",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "eslint": "^10.12.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^17.0.0",
+    "playwright-core": "1.56.1",
+    "prettier": "^3.6.2",
+    "typescript": "5.9.3",
+    "typescript-eslint": "^8.46.1",
+    "vite": "8.3.4",
+    "vitest": "5.0.4",
+    "tsx": "4.23.15",
+    "@types/ws": "^8.18.1"
+  }
+}

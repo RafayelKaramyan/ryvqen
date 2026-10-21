@@ -1,0 +1,14 @@
+:root {
+  --bg: #0d1117;
+  --panel: #11171d;
+  --text: #e9ece5;
+  --muted: #9ba79f;
+  --lime: #d7fa70;
+  --cyan: #8edbd3;
+  --orange: #e8b486;
+  --ink: #172014;
+  --line: #252f33;
+  --line-strong: #43504d;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Space Grotesk Variable', sans-serif;
+}
